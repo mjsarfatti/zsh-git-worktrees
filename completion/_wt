@@ -17,7 +17,7 @@ __wt_branches() {
   if [[ $words[2] == "rm" ]]; then
     branches=(${(f)"$(git worktree list | awk '{ print $3 }' | sed -e 's/[[]//' -e 's/[]]//' | sort | uniq)"})
   else
-    branches=(${(f)"$(branches="$(git branch -a | grep -v 'remotes/origin/HEAD' | grep -v '^\*' | sed -E 's/ +|.*remotes\/origin\///g' | sort | uniq)")"})
+    branches=(${(f)"$(git branch -a | grep -v 'remotes/origin/HEAD' | grep -v '^\*' | sed -E 's/ +|.*remotes\/origin\///g' | sort | uniq)"})
   fi
   _describe 'branch' branches
 }
