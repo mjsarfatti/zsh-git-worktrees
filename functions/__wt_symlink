@@ -2,20 +2,10 @@ local repo="$(basename $(dirname $PWD))"
 local branch="$1"
 local dir="$2"
 
-if git rev-parse --is-inside-work-tree > /dev/null 2>&1 && [ -d ".git/worktrees" ]; then
-else
-  cd ../
-fi
-
-# Check if the target directory exists
-if [ -d "$dir" ]; then
-  cd "$dir"
-else
-  # Remove the existing symlink and create a new one if directory does not exist
-  rm "$repo" 2>/dev/null
-  ln -s "$dir" "$repo"
-  cd "$repo"
-fi
+cd ../
+rm "$repo" 2>/dev/null
+ln -s "$dir" "$repo"
+cd "$repo"
 
 git branch --set-upstream-to "origin/$branch" 2> /dev/null
 
